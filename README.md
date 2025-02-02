@@ -4,9 +4,11 @@ Weather Flutter project.
 
 ## How to install project?
 
- `flutter pub get`
- `flutter clean`
- `dart run build_runner build --delete-conflicting-outputs`
+```
+flutter pub get
+flutter clean
+dart run build_runner build --delete-conflicting-outputs`
+```
 
  ## Useful information
 
