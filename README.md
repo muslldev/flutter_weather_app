@@ -1,12 +1,14 @@
-# mobile_bootcamp_example
+# Mobile Bootcamp (Flutter)
 
-A new Flutter project.
+Weather Flutter project.
 
-## Getting Started
+## How to install project?
 
-This project is a starting point for a Flutter application.
+ `flutter pub get`
+ `flutter clean`
+ `dart run build_runner build --delete-conflicting-outputs`
 
-A few resources to get you started if this is your first Flutter project:
+ ## Useful information
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
