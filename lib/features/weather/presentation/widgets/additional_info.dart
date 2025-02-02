@@ -39,9 +39,10 @@ class AdditionalInfoWidget extends StatelessWidget {
                   '${currentWeather.windKph} ${AppLocalizations.of(context)!.kph}',
             ),
             RowInfoWidget(
-                icon: Icons.flag,
-                label: AppLocalizations.of(context)!.windDirection,
-                value: currentWeather.windDir),
+              icon: Icons.flag,
+              label: AppLocalizations.of(context)!.windDirection,
+              value: currentWeather.windDir,
+            ),
             RowInfoWidget(
               icon: Icons.waves,
               label: AppLocalizations.of(context)!.precipitation,
@@ -55,9 +56,10 @@ class AdditionalInfoWidget extends StatelessWidget {
                   '${currentWeather.visKm} ${AppLocalizations.of(context)!.km}',
             ),
             RowInfoWidget(
-                icon: Icons.wb_sunny,
-                label: AppLocalizations.of(context)!.uvIndex,
-                value: currentWeather.uv.toString()),
+              icon: Icons.wb_sunny,
+              label: AppLocalizations.of(context)!.uvIndex,
+              value: currentWeather.uv.toString(),
+            ),
           ],
         ),
       ),

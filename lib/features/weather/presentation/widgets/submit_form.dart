@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mobile_bootcamp_example/uikit/theme/app_colors.dart';
+import 'package:mobile_bootcamp_example/features/weather/domain/entities/city_model.dart';
+import 'package:mobile_bootcamp_example/features/weather/presentation/bloc/city/city_bloc.dart';
 
 class SubmitForm extends StatefulWidget {
   const SubmitForm({super.key});
@@ -22,7 +24,7 @@ class _SubmitFormState extends State<SubmitForm> {
   void _submit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      Navigator.pushReplacementNamed(context, '/weather');
+      context.read<CityBloc>().add(CityEvent.getCity());
       _controller.clear();
     }
   }
@@ -30,41 +32,47 @@ class _SubmitFormState extends State<SubmitForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: _formKey,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: TextFormField(
-                controller: _controller,
-                style: TextStyle(color: AppColors.black1),
-                decoration: InputDecoration(
+      key: _formKey,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: TextFormField(
+              style: TextStyle(color: Colors.black),
+              controller: _controller,
+              decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.enterCity,
                   border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.pleaseEnterCity;
-                  }
-                  return null;
-                },
-                onSaved: (value) {},
-              ),
+                  filled: true,
+                  fillColor: Colors.white),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return AppLocalizations.of(context)!.pleaseEnterCity;
+                }
+                return null;
+              },
+              onSaved: (value) {
+                context
+                    .read<CityBloc>()
+                    .add(CityEvent.setCity(CityModel(cityName: value ?? '')));
+              },
             ),
-            const SizedBox(width: 10),
-            ElevatedButton(
-              onPressed: _submit,
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.purple,
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                minimumSize: const Size(40, 50),
-              ),
-              child: Text(AppLocalizations.of(context)!.submit),
+          ),
+          const SizedBox(width: 10),
+          ElevatedButton(
+            onPressed: _submit,
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.purple,
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              minimumSize: const Size(40, 50),
             ),
-          ],
-        ));
+            child: Text(AppLocalizations.of(context)!.submit),
+          ),
+        ],
+      ),
+    );
   }
 }

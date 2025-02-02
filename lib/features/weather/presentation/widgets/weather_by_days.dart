@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_bootcamp_example/common/format_date.dart';
-import 'package:mobile_bootcamp_example/features/weather/domain/entities/hour_model.dart';
+import 'package:mobile_bootcamp_example/features/weather/domain/entities/forecast_day_model.dart';
 import 'package:mobile_bootcamp_example/features/weather/presentation/widgets/small_info_widget.dart';
 
-class WeatherByTimeWidget extends StatelessWidget {
-  const WeatherByTimeWidget({super.key, required this.hours});
-  final List<HourModel> hours;
+class WeatherByDaysWidget extends StatelessWidget {
+  const WeatherByDaysWidget({super.key, required this.days});
+  final List<ForecastDayModel> days;
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +21,14 @@ class WeatherByTimeWidget extends StatelessWidget {
           child: ListView.builder(
             physics: AlwaysScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
-            itemCount: hours.length,
+            itemCount: days.length,
             itemBuilder: (context, index) {
-              final hour = hours[index];
+              final day = days[index];
               return SmallInfoWidget(
-                label: formatTimeToHour(dateTime: hour.time),
-                icon: "https:${hour.condition.icon}",
-                subtitle1: "${hour.humidity.toString()}%",
-                subtitle2: "${hour.tempC}C",
+                label: formatDateToDayOfWeek(date: day.date),
+                icon: "https:${day.day.condition.icon}",
+                subtitle1: day.day.condition.text,
+                subtitle2: "${day.day.mintempC}°/${day.day.maxtempC}°",
               );
             },
           ),
